@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+	<title>Socket.IO chat</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+		<ul id="messages"></ul>
+
+
+	<div class="container-fluid navbar-fixed-bottom">
+		<form action="" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2">
+						<input type="text" class="form-control" id="username" placeholder="Name" required>
+						<!--<small class="form-text text-muted">Example help text that remains unchanged.</small>-->
+				</div>
+
+				<div class="col-sm-9">
+						<input type="text" class="form-control" id="message" placeholder="Enter your text" autocomplete="off" required>
+				</div>
+				<div class="col-sm-1">
+					<button class="btn btn-primary pull-right">Send</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(function () {
+			var socket = io();
+			$('form').submit(function(){
+				var messageReceived = $('#message').val();
+				/*if(messageReceived.contains("/setColor ") === true) {
+					//do something
+				}*/
+				var fullMessage = $('#username').val() + ": " + messageReceived;
+				socket.emit('chat message', fullMessage);
+				$('#username').val('');
+				$('#message').val('');
+				return false;
+			});
+			socket.on('chat message', function(msg){
+				$('#messages').append($('<li>').text(msg));
+			});
+		});
+	</script>
+
+</body>
+</html>
