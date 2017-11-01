@@ -10,10 +10,10 @@ app.get('/', function(req, res){
 app.use(express.static('public'));
 
 io.on('connection', function(socket){
-	//socket.join('x room');
+	socket.join('x room');
 	socket.on('chat message', function(msg){
-		io.emit('chat message', msg);
-		//socket.broadcast.to('x room').emit('chat message', msg);
+		//io.emit('chat message', msg);
+		socket.broadcast.to('x room').emit('chat message', msg);
 	});
 });
 
