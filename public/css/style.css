@@ -9,10 +9,12 @@ body {
 	color: white;
 	background-color: #1E58BC;
 }
+
 #messages li {
 	list-style-type: none;
 	padding: 5px;
 }
+
 #messages li:nth-child(even) {
 	background-color: #7EA1DC;
 }
